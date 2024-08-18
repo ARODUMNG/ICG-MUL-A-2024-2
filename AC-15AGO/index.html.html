@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibujar Figuras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        canvas {
+            border: 1px solid #000;
+            margin-top: 20px;
+            display: block;
+        }
+        .button-group {
+            margin-top: 10px;
+        }
+        button {
+            margin-right: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dibujar Figuras Geométricas</h1>
+    <div class="form-group">
+        <label for="shape">Selecciona una figura:</label>
+        <select id="shape">
+            <option value="circle">Círculo</option>
+            <option value="square">Cuadrado</option>
+            <option value="triangle">Triángulo</option>
+            <option value="pentagon">Pentágono</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="x">Ubicación X (px):</label>
+        <input type="number" id="x" value="150">
+    </div>
+
+    <div class="form-group">
+        <label for="y">Ubicación Y (px):</label>
+        <input type="number" id="y" value="150">
+    </div>
+
+    <div class="form-group">
+        <label for="size">Tamaño (px):</label>
+        <input type="number" id="size" value="50">
+    </div>
+
+    <div class="form-group">
+        <label for="fillColor">Color de relleno:</label>
+        <input type="color" id="fillColor" value="#ff0000">
+    </div>
+
+    <div class="form-group">
+        <label for="borderColor">Color del borde:</label>
+        <input type="color" id="borderColor" value="#000000">
+    </div>
+
+    <div class="form-group">
+        <label for="outputFormat">Selecciona formato de salida:</label>
+        <select id="outputFormat">
+            <option value="raster">Rasterizar (PNG)</option>
+            <option value="vector">Vectorizar (SVG)</option>
+        </select>
+    </div>
+
+    <div class="button-group">
+        <button onclick="drawShape()">Dibujar</button>
+        <button onclick="clearLastShape()">Borrar Última Figura</button>
+        <button onclick="clearAllShapes()">Borrar Todas las Figuras</button>
+        <button onclick="saveImage()">Guardar Imagen</button>
+    </div>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+
+    <script src="Dibujar.js"></script>
+</body>
+</html>
