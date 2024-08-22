@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibujo de Polígonos Regulares</title>
+    <style>
+        #canvas {
+            border: 1px solid rgb(0, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <h1>Dibujar Un Polígono Regular</h1>
+    
+    <label for="nLados">Número de lados:</label>
+    <input type="number" id="nLados" min="3"><br><br>
+
+    <label for="lado">Valor del lado:</label>
+    <input type="number" id="lado" ><br><br>
+
+    <label for="coordX">Coordenada X del centro:</label>
+    <input type="number" id="coordX" value="250"><br><br>
+
+    <label for="coordY">Coordenada Y del centro:</label>
+    <input type="number" id="coordY" value="250"><br><br>
+
+    <button onclick="dibujar()">Dibujar Polígono</button>
+    <button onclick="borrar()">Borrar</button><br><br>
+
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <script>
+        function dibujar() {
+            const numero = parseInt(document.getElementById('nLados').value);
+            const lado = parseFloat(document.getElementById('lado').value);
+            const coordX = parseFloat(document.getElementById('coordX').value);
+            const coordY = parseFloat(document.getElementById('coordY').value);
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            //ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+                // Ángulo alfa interior en el poligono 
+            const anguloInterior = (Math.PI * (numero - 2)) / numero;
+            // Ángulo de giro para cada lado que se coloca
+            const angulo = -2 * Math.PI / numero;
+
+            // calculos para colocar el primer vertice de la figura
+            let x = coordX + (lado / 2);
+            let y = coordY + (lado / (2 * Math.tan(Math.PI / numero)));
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+
+             // Dibujar cada lado del polígono
+             for (let i = 1; i < numero; i++) {
+                // Calcular el siguiente vértice
+                const nuevoX = x + lado * Math.cos(i * angulo);
+                const nuevoY = y + lado * Math.sin(i * angulo);
+
+                ctx.lineTo(nuevoX, nuevoY);
+
+                // cambiar las coordenadas x, y para el siguiente vértice
+                x = nuevoX;
+                y = nuevoY;
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function borrar() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+    </script>
+</body>
+</html>
+
