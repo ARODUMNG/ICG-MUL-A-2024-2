@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibujo SVG</title>
+</head>
+<body>
+    <svg id="svg" width="500" height="500" style="border:1px solid black;"></svg>
+    <script>
+        // Clase Punto
+        class Punto {
+            #x;
+            #y;
+
+            constructor(x, y) {
+                this.#x = x;
+                this.#y = y;
+            }
+
+            getX() {
+                return this.#x;
+            }
+
+            getY() {
+                return this.#y;
+            }
+        }
+
+        // Clase de primitivas
+        class Primitiva {
+            #svgElement;
+
+            constructor(svgElement) {
+                this.#svgElement = svgElement;
+            }
+
+            crearElementoSVG(tipo, atributos) {
+                const elemento = document.createElementNS("http://www.w3.org/2000/svg", tipo);
+                for (let atributo in atributos) {
+                    elemento.setAttribute(atributo, atributos[atributo]);
+                }
+                this.#svgElement.appendChild(elemento);
+            }
+        }
+
+        // Clase para dibujar una línea
+        class Linea extends Primitiva {
+            #puntoInicio;
+            #puntoFin;
+
+            constructor(svgElement, puntoInicio, puntoFin) {
+                super(svgElement);
+                this.#puntoInicio = puntoInicio;
+                this.#puntoFin = puntoFin;
+            }
+
+            dibujar() {
+                this.crearElementoSVG('line', {
+                    x1: this.#puntoInicio.getX(),
+                    y1: this.#puntoInicio.getY(),
+                    x2: this.#puntoFin.getX(),
+                    y2: this.#puntoFin.getY(),
+                    stroke: 'orange',
+                    'stroke-width': 2
+                });
+            }
+        }
+
+        // Clase para dibujar una circunferencia
+        class Circunferencia extends Primitiva {
+            #centro;
+            #radio;
+
+            constructor(svgElement, centro, radio) {
+                super(svgElement);
+                this.#centro = centro; // Punto central
+                this.#radio = radio;
+            }
+
+            dibujar() {
+                this.crearElementoSVG('circle', {
+                    cx: this.#centro.getX(),
+                    cy: this.#centro.getY(),
+                    r: this.#radio,
+                    stroke: 'red',
+                    'stroke-width': 2,
+                    fill: 'none'
+                });
+            }
+        }
+
+        // Clase para dibujar una elipse
+        class Elipse extends Primitiva {
+            #centro;
+            #rx;
+            #ry;
+
+            constructor(svgElement, centro, rx, ry) {
+                super(svgElement);
+                this.#centro = centro; // Punto central
+                this.#rx = rx;
+                this.#ry = ry;
+            }
+
+            dibujar() {
+                this.crearElementoSVG('ellipse', {
+                    cx: this.#centro.getX(),
+                    cy: this.#centro.getY(),
+                    rx: this.#rx,
+                    ry: this.#ry,
+                    stroke: 'pink',
+                    'stroke-width': 2,
+                    fill: 'none'
+                });
+            }
+        }
+
+        // Función principal para dibujar las primitivas
+        function dibujarPrimitivas() {
+            const svg = document.getElementById('svg');
+
+            // Dibuja una línea
+            const puntoInicio = new Punto(50, 50);
+            const puntoFin = new Punto(200, 200);
+            const linea = new Linea(svg, puntoInicio, puntoFin);
+            linea.dibujar();
+
+            // Dibuja una circunferencia
+            const centroCircunferencia = new Punto(300, 100);
+            const circunferencia = new Circunferencia(svg, centroCircunferencia, 50);
+            circunferencia.dibujar();
+
+            // Dibuja una elipse
+            const centroElipse = new Punto(400, 300);
+            const elipse = new Elipse(svg, centroElipse, 80, 50);
+            elipse.dibujar();
+        }
+
+        // Llamar a la función para dibujar las primitivas cuando se cargue la página
+        window.onload = dibujarPrimitivas;
+    </script>
+</body>
+</html>
