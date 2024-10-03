@@ -56,15 +56,48 @@
             }
 
             dibujar() {
-                this.crearElementoSVG('line', {
-                    x1: this.#puntoInicio.getX(),
-                    y1: this.#puntoInicio.getY(),
-                    x2: this.#puntoFin.getX(),
-                    y2: this.#puntoFin.getY(),
-                    stroke: 'orange',
-                    'stroke-width': 2
-                });
+                const x0 = this.#puntoInicio.getX();
+                const y0 = this.#puntoInicio.getY();
+                const x1 = this.#puntoFin.getX();
+                const y1 = this.#puntoFin.getY();
+
+                const dx = x1 - x0;
+                const dy = y1 - y0;
+                const absDx = Math.abs(dx);
+                const absDy = Math.abs(dy);
+                const sx = (dx > 0) ? 1 : -1; // dirección en x
+                const sy = (dy > 0) ? 1 : -1; // dirección en y
+
+                let err = absDx - absDy; // error inicial
+
+                let x = x0;
+                let y = y0;
+
+                while (true) {
+                    this.crearElementoSVG('line', {
+                        x1: x,
+                        y1: y,
+                        x2: x,
+                        y2: y,
+                        stroke: 'orange',
+                        'stroke-width': 2
+                    });
+
+                    if (x === x1 && y === y1) break; // Si hemos llegado al final
+
+                    const err2 = err * 2;
+
+                    if (err2 > -absDy) {
+                        err -= absDy;
+                        x += sx;
+                    }
+                    if (err2 < absDx) {
+                        err += absDx;
+                        y += sy;
+                    }
+                }
             }
+        }
         }
 
         // Clase para dibujar una circunferencia
