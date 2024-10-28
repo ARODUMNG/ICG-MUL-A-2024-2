@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan-Fill y Flood-Fill</title>
+    
+    <style>
+        body {
+            display: flex; /* Usar flexbox para organizar el contenido */
+            align-items: flex-start; /* Alinear los elementos en la parte superior */
+            justify-content: space-between; /* Espacio entre el título y el canvas */
+            margin: 20px; /* Espaciado alrededor del contenido */
+        }
+
+        .text-container {
+            max-width: 300px; /* Limitar el ancho del contenedor de texto */
+            text-align: left; /* Alinear el texto a la derecha */
+        }
+
+        canvas {
+            border: 1px solid black; /* Borde del canvas */
+            margin-left: 20px; /* Espacio entre el texto y el canvas */
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        <h1>Métodos de relleno</h1>
+        <h2><i>Pasos para el correcto funcionamiento del código</i></h2>
+        <p>
+            <br>El color que desea aplicar al relleno
+            <br>Escoja un método de relleno
+            <br>Presione el botón correspondiente a su elección
+            <br>El sistema rellenará la figura de forma inmediata al presionar el botón
+        </p>
+    </div>
+
+    <div>
+        <input type="file" id="imageLoader" accept="image/png, image/jpeg" />
+        <br>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        <br>
+        <input type="color" id="colorPicker" value="#ff0000" />
+        <button id="scanFillButton">Scan-Fill</button>
+        <button id="floodFillButton">Flood-Fill</button>
+    </div>
+
+    <script src="Fill.js"></script>
+</body>
+</html>
